@@ -30,17 +30,11 @@ export default class App extends Component {
 
         let hide = ' ';
         
-        let hideButton = <Button 
-        onClick={this.hideRandom}
-        color="info">Show random characher</Button>
+        let buttonText = 'Show random characher'
 
         if (hideStatus) {
             hide += '';
-
-            hideButton = <Button 
-            onClick={this.hideRandom}
-            color="info">Hide random characher</Button>
-            
+            buttonText = 'Hide random characher'
         }
         else {
             hide += 'd-none';
@@ -50,7 +44,9 @@ export default class App extends Component {
         <> 
             <Container>
                 <Header />
-                {hideButton}
+                <Button 
+                    onClick={this.hideRandom}
+                    color="info">{buttonText}</Button>
             </Container>
             <Container>
                 <Row className={hide}>
