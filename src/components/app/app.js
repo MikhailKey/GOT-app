@@ -2,45 +2,55 @@ import React, {Component} from 'react';
 import {Col, Row, Container, Button} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
-import ItemList from '../itemList';
-import CharDetails from '../charDetails';
-
-
+import ErrorMessage from '../errorMessage';
+import CharacterPage from '../characterPage';
 
 export default class App extends Component {
     constructor(props) {
         super(props);
         this.state={
-            hideStatus: true
+            showRandomChar: true,          
+            error: false,
         }
         this.hideRandom = this.hideRandom.bind(this);
     }
 
+    componentDidCatch() {
+     
+        this.setState({
+            error: true
+        })
+    }
 
     hideRandom() {
         this.setState(
             {
-                hideStatus: !this.state.hideStatus
+                showRandomChar: !this.state.showRandomChar
             }
         )
 
     }
+    onCharSelected = (id) => {
+        this.setState({
+            selectedChar: id
+        })
+    }
     render() {
-        const {hideStatus} = this.state;
-
-        let hide = ' ';
+        const {showRandomChar} = this.state;
         
         let buttonText = 'Show random characher'
-
-        if (hideStatus) {
-            hide += '';
+        let hide = <RandomChar/>;
+        if (showRandomChar) {
             buttonText = 'Hide random characher'
         }
         else {
-            hide += 'd-none';
+            hide = '';
         }
 
-    return (
+        if (this.state.error) {
+            return <ErrorMessage/>
+        }
+     return (
         <> 
             <Container>
                 <Header />
@@ -49,19 +59,12 @@ export default class App extends Component {
                     color="info">{buttonText}</Button>
             </Container>
             <Container>
-                <Row className={hide}>
-                    <Col lg={{size: 5, offset: 0}}>
-                        <RandomChar/>
-                    </Col>
-                </Row>
                 <Row>
-                    <Col md='6'>
-                        <ItemList />
-                    </Col>
-                    <Col md='6'>
-                        <CharDetails />
+                    <Col /*lg={{size: 5, offset: 0}}*/>
+                        {hide}
                     </Col>
                 </Row>
+                <CharacterPage/>
             </Container>
         </>
     );
