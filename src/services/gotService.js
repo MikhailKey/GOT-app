@@ -2,7 +2,7 @@ export default class GotService {
     constructor() {
         this._apiBase = 'https://www.anapioficeandfire.com/api';
     }
-    async getResource(url) {
+    getResource = async (url) => {
         const res = await fetch(`${this._apiBase}${url}`);
         if (!res.ok) {
             throw new Error(`Could not fetch ${url}, status: ${res.status}`);
@@ -10,27 +10,27 @@ export default class GotService {
         return await res.json();
     };
   
-    async getAllCharacters() {
-        const res = await this.getResource('/characters?page=6&pageSize=10');
+    getAllCharacters = async () =>  {
+        const res = await this.getResource('/characters?page=5&pageSize=10');
         return res.map(this._transformCharacter); 
     }
-    async getCharacter(id) {
+    getCharacter = async (id) => {
         const character = await this.getResource(`/characters/${id}`);
         return this._transformCharacter(character); 
     }
-    async getAllBook() {
+    getAllBook = async () => {
         const books = await this.getResource(`/books/`);
         return books.map(this._transformBook);
     }
-    async getBook(id) {
-        const book = await this.getResource(`/books/${id}`);
+    getBook = async (id) => {
+        const book = await this.getResource(`/books/${id}/`);
         return this._transformBook(book);
     }
-    async getAllHouse() {
+    getAllHouse = async () => {
         const houses = await this.getResource(`/houses/`);
         return houses.map(this._transformHouse);
     }
-    async getHouse(id) {
+    getHouse = async (id) => {
         const house = await this.getResource(`/houses/${id}/`);
         return this._transformHouse(house);
     }
@@ -56,23 +56,47 @@ export default class GotService {
         }
     }
 
-    _transformHouse(house) {
+    _transformHouse =(house) => {
     return {
-        name: house.name,
-        region: house.region,
-        words: house.words,
-        titles: house.titles,
-        overlord: house.overlord,
-        ancestralWeapons: house.ancestralWeapons,
+        id: this._extractId(house),
+        name: this.isSet(house.name),
+        region: this.isSet(house.region),
+        words: this.isSet(house.words),
+        coatOfArms: this.isSet(house.coatOfArms),
+        overlord: this.isSet(house.overlord),
+        ancestralWeapons: this.isSet(house.ancestralWeapons)
+    }
+    }
+    
+    _transformBook = (book) => {
+        return {
+            id: this._extractId(book),
+            name: this.isSet(book.name),
+            numberOfPages: this.isSet(book.numberOfPages),
+            publiser: this.isSet(book.publiser),
+            released: this.isSet(book.released),
+        }
+    }
+}
+
+/*_transformHouse(house) {
+    return {
+        id: this._extractId(house),
+        name: this.isSet(house.name),
+        region: this.isSet(house.region),
+        words: this.isSet(house.words),
+        titles: this.isSet(house.titles),
+        overlord: this.isSet(house.overlord),
+        ancestralWeapons: this.isSet(house.ancestralWeapons),
     }
     }
     
     _transformBook(book) {
         return {
-            name: book.name,
-            numberOfPages: book.numberOfPages,
-            publiser: book.publiser,
-            released: book.released,
+            id: this._extractId(book),
+            name: this.isSet(book.name),
+            numberOfPages: this.isSet(book.numberOfPages),
+            publiser: this.isSet(book.publiser),
+            released: this.isSet(book.released),
         }
-    }
-}
+    } */

@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import gotService from '../../services/gotService';
+import {Col, Row, Button} from 'reactstrap';
 import styled from 'styled-components';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import Spinner from '../spinner';
 import ErrorMessage from '../errorMessage';
+
 
 const MainWrap = styled.div`
     background-color: #fff;
@@ -21,14 +23,25 @@ font-weight: bold;
 
 
 export default class RandomChar extends Component {
-
     gotService = new gotService();
-    state = {
-        char: {},
-        loading: true,
-        error: false,
+    constructor(props) {
+        super(props);
+        this.state = {
+            char: {},
+            loading: true,
+            error: false,
+            showRandomChar: true,   
     }
+    this.hideRandom = this.hideRandom.bind(this);
+    }
+    hideRandom() {
+        this.setState(
+            {
+                showRandomChar: !this.state.showRandomChar
+            }
+        )
 
+    }
     componentDidMount() {
         this.updateChar();
         this.timerId = setInterval(this.updateChar, 2500);
@@ -58,18 +71,43 @@ export default class RandomChar extends Component {
             .catch(this.onError); 
     }
     render() {
+        
+        const {showRandomChar} = this.state;
+        
+       
+
+        if (this.state.error) {
+            return <ErrorMessage/>
+        }
 
         const { char, loading, error } = this.state;
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner /> : null;
         const content = !(loading || error) ? <View char = {char}/> : null;
+        let buttonText = 'Show random characher'
+        let hide = <MainWrap>
+        {errorMessage}
+        {spinner}
+        {content}
+     </MainWrap>;
+        if (showRandomChar) {
+            buttonText = 'Hide random characher'
+        }
+        else {
+            hide = '';
+        }
 
     return (
-        <MainWrap>
-            {errorMessage}
-            {spinner}
-            {content}
-        </MainWrap>
+        <>
+        <Button 
+            onClick={this.hideRandom}
+            color="info">{buttonText}</Button>
+                <Row>
+                    <Col /*lg={{size: 5, offset: 0}}*/>
+                        {hide}
+                    </Col>
+                </Row>
+        </>
        );
     }
 }
