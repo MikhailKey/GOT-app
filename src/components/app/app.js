@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Container} from 'reactstrap';
 import Header from '../header';
+import gotService from '../../services/gotService';
 import RandomChar from '../randomChar';
 import styled from 'styled-components';
 import ErrorMessage from '../errorMessage';
@@ -17,11 +18,12 @@ const AppBlock = styled.div`
 }`
 
 export default class App extends Component {
-
+    gotService = new gotService();
     constructor(props) {
         super(props);
         this.state={
             error: false,
+           
         }
         
     }
@@ -31,6 +33,7 @@ export default class App extends Component {
             error: true
         })
     } 
+
     
     render() {
         if (this.state.error) {
@@ -38,13 +41,14 @@ export default class App extends Component {
         }
      return (
          <AppBlock>
-       <Router>
-            <div className ="app"> 
+       <Router>   
             <Container>
                 <Header />
             </Container>
             <Container>
-                <RandomChar/>
+                <RandomChar 
+                getRandomItem = {this.gotService.getCharacter}
+                />
                 <Route path='/' exact component={HomePage}/>
                 <Route path='/characters' component={CharacterPage}/>
                 <Route path='/houses' component={HousePage}/>
@@ -55,7 +59,7 @@ export default class App extends Component {
                     return <BooksItem bookId={id}/>}
                     }/>
             </Container>
-        </div>
+     
        </Router>
        </AppBlock>
     );
