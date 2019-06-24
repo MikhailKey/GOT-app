@@ -3,7 +3,7 @@ import {Container} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
-import {CharacterPage, HousePage, BookPage} from '../pages';
+import {CharacterPage, HousePage, BookPage, BooksItem} from '../pages';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 
@@ -39,7 +39,11 @@ export default class App extends Component {
                 <Route path='/characters' component={CharacterPage}/>
                 <Route path='/houses' component={HousePage}/>
                 <Route path='/books' exact component={BookPage}/>
-               
+                <Route path='/books/:id' render={
+                    ({match}) => {
+                        const {id} = match.params;
+                    return <BooksItem bookId={id}/>}
+                    }/>
             </Container>
         </div>
        </Router>
