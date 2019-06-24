@@ -3,7 +3,7 @@ import {Container} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
-import {CharacterPage, HousePage, BookPage, BooksItem} from '../pages';
+import {CharacterPage, HousePage, BookPage, BooksItem, HomePage} from '../pages';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 
@@ -35,7 +35,7 @@ export default class App extends Component {
             </Container>
             <Container>
                 <RandomChar/>
-                <Route path='/' exact component={() => <h1>Welcome to the best GOT Wiki</h1>}/>
+                <Route path='/' exact component={HomePage}/>
                 <Route path='/characters' component={CharacterPage}/>
                 <Route path='/houses' component={HousePage}/>
                 <Route path='/books' exact component={BookPage}/>

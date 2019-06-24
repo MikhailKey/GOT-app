@@ -25,8 +25,8 @@ text-align: right;
 
 const Field = ({item, field, label}) => {
     return (
-        <ListGroupItem className="d-flex justify-content-between">
-                        <Term>{label} </Term>
+        <ListGroupItem color="danger" className="d-flex justify-content-between">
+                        <Term >{label} </Term>
                         <TermInfo>{item[field]}</TermInfo>
         </ListGroupItem>
     )
