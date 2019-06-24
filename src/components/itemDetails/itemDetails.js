@@ -61,20 +61,19 @@ export default class itemDetails extends Component {
     }
     updateitem() {
         const {itemId, getItem} = this.props;
+        this.setState({loading: true})
         if (!itemId) {
             return;
-        }
-
+        } else {
         getItem(itemId)
-        .then((item) => {
-            this.setState({item})
+            .then((item) => {
+                this.setState({item, loading: false})
         })
-        
     }
-
+    };
 
     render() {
-        const {error, item, loading} = this.state
+        const {error, item, loading} = this.state;
         const {text} = this.props;
         if (error) {
             return <ErrorMessage/>
