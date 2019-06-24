@@ -51,9 +51,10 @@ export default class itemDetails extends Component {
         })
     }
     componentDidMount() {
-        this.updateitem();
+        if (this.props.itemId) {
+            this.updateitem();
     }
-
+    }
     componentDidUpdate(prevProps) {
         if (this.props.itemId !== prevProps.itemId) {
             this.updateitem();
@@ -70,7 +71,8 @@ export default class itemDetails extends Component {
                 this.setState({item, loading: false})
         })
     }
-    };
+    }
+
 
     render() {
         const {error, item, loading} = this.state;
