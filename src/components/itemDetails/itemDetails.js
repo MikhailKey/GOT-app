@@ -19,11 +19,15 @@ border-radius: 5px;
 const Term = styled.span`
 font-weight: bold;
 `
+const TermInfo = styled.span`
+text-align: right;
+`
+
 const Field = ({item, field, label}) => {
     return (
         <ListGroupItem className="d-flex justify-content-between">
                         <Term>{label} </Term>
-                        <span>{item[field]}</span>
+                        <TermInfo>{item[field]}</TermInfo>
         </ListGroupItem>
     )
 }

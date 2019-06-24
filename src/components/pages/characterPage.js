@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import ItemList from '../../itemList';
-import ItemDetails, {Field} from '../../itemDetails';
-import ErrorMessage from '../../errorMessage';
-import gotService from '../../../services/gotService';
-import RowBlock from '../../RowBlock';
+import ItemDetails, {Field} from '../itemDetails';
+import ErrorMessage from '../errorMessage';
+import gotService from '../../services/gotService';
+import RowBlock from '../RowBlock';
 
 
 export default class CharacterPage extends Component {
     gotService = new gotService();
     state = {
-        selecterChar: null,
+        selectedItem: null,
         error: false,
 
     }
