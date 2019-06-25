@@ -4,7 +4,7 @@ import ItemDetails, {Field} from '../itemDetails';
 import ErrorMessage from '../errorMessage';
 import gotService from '../../services/gotService';
 import RowBlock from '../RowBlock';
-
+import RandomChar, {NewField} from '../randomChar';
 
 export default class CharacterPage extends Component {
     gotService = new gotService();
@@ -29,12 +29,15 @@ export default class CharacterPage extends Component {
             return <ErrorMessage/>
         }
         const itemList = (
+           
             <ItemList               
                 getData = {this.gotService.getAllCharacters}
                 onItemSelected={this.onItemSelected}
                 renderItem={({name, gender}) => `${name} (${gender})`}/>
+              
         )
         const itemDetails = (
+            
             <ItemDetails 
             text={'Please select a character'}
             itemId={this.state.selectedItem}
@@ -47,7 +50,16 @@ export default class CharacterPage extends Component {
             </ItemDetails>
         )
         return (
+            <>
+            <RandomChar 
+                getRandomItem = {this.gotService.getCharacter}>
+                <NewField field='gender' label='Gender'/>
+                <NewField field='born' label='Born'/>
+                <NewField field='died' label='Died'/>
+                <NewField field='culture' label='Culture'/>/>
+                    </RandomChar>
            <RowBlock left = {itemList} right = {itemDetails}/>
+           </> 
         )
     }
 }

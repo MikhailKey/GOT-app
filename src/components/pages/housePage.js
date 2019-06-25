@@ -4,7 +4,7 @@ import ItemDetails, {Field} from '../itemDetails';
 import ErrorMessage from '../errorMessage';
 import gotService from '../../services/gotService';
 import RowBlock from '../RowBlock';
-
+import RandomChar from '../randomChar';
 
 export default class HousePage extends Component {
     gotService = new gotService();
@@ -29,12 +29,14 @@ export default class HousePage extends Component {
             return <ErrorMessage/>
         }
         const itemList = (
+        
             <ItemList 
             onItemSelected={this.onItemSelected}
             getData={this.gotService.getAllHouse}
             renderItem={(item) => item.name}/>
         )
         const itemDetails = (
+            
             <ItemDetails 
             text={'Please select a house'}
             itemId={this.state.selectedItem}
@@ -47,7 +49,12 @@ export default class HousePage extends Component {
             </ItemDetails>
         )
         return (
+            <>
+            {/*<RandomChar 
+                getRandomItem = {this.gotService.getHouse}
+            />*/}
            <RowBlock left = {itemList} right = {itemDetails}/>
+           </>
         )
     }
 }

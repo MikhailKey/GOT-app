@@ -20,6 +20,21 @@ const MainWrap = styled.div`
 const Term = styled.span`
 font-weight: bold;
 `
+const TermInfo = styled.span`
+text-align: right;
+`
+const NewField = ({item, field, label}) => {
+    return (
+        <ListGroupItem className="d-flex justify-content-between">
+                        <Term >{label} </Term>
+                        <TermInfo>{item[field]}</TermInfo>
+        </ListGroupItem>
+    )
+}
+
+export {
+    NewField
+}
 
 
 export default class RandomChar extends Component {
@@ -113,27 +128,16 @@ export default class RandomChar extends Component {
     }
 }
 const View = ({char}) => {
-        const {name, gender, born, died, culture} = char;
+        const {name} = char;
     return (
         <>
         <h4>Random Character: {name}</h4>
             <ListGroup className="list-group-flush">
-                <ListGroupItem className="d-flex justify-content-between">
-                    <Term>Gender </Term>
-                    <span>{gender}</span>
-                </ListGroupItem>
-                <ListGroupItem className="d-flex justify-content-between">
-                <Term>Born </Term>
-                    <span>{born}</span>
-                </ListGroupItem>
-                <ListGroupItem className="d-flex justify-content-between">
-                    <Term>Died </Term>
-                    <span>{died}</span>
-                </ListGroupItem>
-                <ListGroupItem className="d-flex justify-content-between">
-                    <Term>Culture </Term>
-                    <span>{culture}</span>
-                </ListGroupItem>
+            {
+                   React.Children.map(this.props.children, (child) => {
+                    return React.cloneElement(child, {char})
+                   })
+               }
             </ListGroup>
         </>
     )
