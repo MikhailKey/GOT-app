@@ -32,17 +32,16 @@ export default class RandomChar extends Component {
     render() {
         const {error} = this.state;
         if (error) {
-            return <ErrorMessage/>
+            return <ErrorMessage/ >
         }
 
         return (
             <RandomBlock>
-                <RandomItemDetails getData={this.GotService.getCharacter}>
+                <RandomItemDetails getData={this.GotService.getBook}>
                        
-                    <Field field='gender' label='Gender' />
-                    <Field field='born' label='Born' />
-                    <Field field='died' label='Died' />
-                    <Field field='culture' label='Culture' />
+                    <Field field='numberOfPages' label='Number of Pages' />
+                    <Field field='publiser' label='Publiser' />
+                    <Field field='released' label='Released' />
 
                 </RandomItemDetails>
             </RandomBlock>

@@ -45,7 +45,6 @@ export default class App extends Component {
                 <Header />
             </Container>
             <Container>
-                
                 <Route path='/' exact component={HomePage}/>
                 <Route path='/characters' component={CharacterPage}/>
                 <Route path='/houses' component={HousePage}/>

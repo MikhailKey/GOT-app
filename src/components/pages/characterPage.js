@@ -51,13 +51,7 @@ export default class CharacterPage extends Component {
         )
         return (
             <>
-            <RandomChar 
-                getRandomItem = {this.gotService.getCharacter}>
-                <NewField field='gender' label='Gender'/>
-                <NewField field='born' label='Born'/>
-                <NewField field='died' label='Died'/>
-                <NewField field='culture' label='Culture'/>/>
-                    </RandomChar>
+            <RandomChar />
            <RowBlock left = {itemList} right = {itemDetails}/>
            </> 
         )

@@ -1,6 +1,3 @@
-import RandomChar, {NewField} from './randomChar';
+import RandomChar from './randomChar';
 
 export default RandomChar;
-export {
-    NewField
-}
